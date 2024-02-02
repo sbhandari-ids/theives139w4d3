@@ -75,9 +75,26 @@ GROUP BY rating;
 
 -- 7.Show all customers who have made a single payment above $6.99 (Use Subqueries)
 
+-- created a TEMP TABLE with customer_id, where amount is more than 6.99 and 
+--used those table data in another query. This is the only solution I came up 
+--to find the customers who have made "only one" transaction above 6.99
 
+SELECT
+    customer_id,
+    amount 
+INTO TEMP TABLE above_seven
+FROM
+    payment
+WHERE
+    amount>6.99
+ORDER BY
+    customer_id;
 
-WORKING ON IT...
+select customer_id, count(customer_id)
+from above_seven
+group by customer_id
+having count(customer_id)=1
+order by customer_id;
 
 
 
