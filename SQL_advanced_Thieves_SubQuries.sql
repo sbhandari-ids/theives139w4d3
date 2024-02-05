@@ -1,4 +1,5 @@
 --  Week 5 - Wednesday Questions
+
 -- 1. List all customers who live in Texas (use JOINs)
 
 
@@ -11,11 +12,12 @@ WHERE address.district = 'Texas';
 
 --2. Get all payments above $6.99 with the Customer's Full Name;
 
-SELECT customer.customer_id, customer.first_name, customer.last_name, payment.amount
-FROM customer
-JOIN payment
-ON customer.customer_id = payment.customer_id
-WHERE payment.amount > 6.99;
+-- SELECT customer.customer_id, customer.first_name, customer.last_name, payment.amount
+-- FROM customer
+-- JOIN payment
+-- ON customer.customer_id = payment.customer_id
+-- WHERE payment.amount > 6.99;
+
 
 SELECT customer.customer_id, (customer.first_name || ' ' || customer.last_name) AS customer_full_name, payment.amount
 FROM customer
@@ -33,7 +35,6 @@ JOIN payment
 ON customer.customer_id = payment.customer_id
 WHERE customer.customer_id IN (select customer_id from payment group by customer_id having sum(amount) >175)
 
-select first_name, last_name from customer where customer_id = 144
 
 -- WHAT'S NOT WORKING --- getting the list of duplicate names.
 
@@ -109,5 +110,5 @@ WHERE payment.amount = 0;
 
 -- Also can be done without join : 
 
-select count(rental_id) from payment where amount =0;
+-- select count(rental_id) from payment where amount = 0;
 
