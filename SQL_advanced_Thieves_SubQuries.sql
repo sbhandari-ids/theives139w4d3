@@ -9,6 +9,16 @@ JOIN address
 ON customer.address_id = address.address_id
 WHERE address.district = 'Texas'; 
 
+Answer : 
+"customer_id","first_name","last_name","district"
+6,"Jennifer","Davis","Texas"
+118,"Kim","Cruz","Texas"
+305,"Richard","Mccrary","Texas"
+400,"Bryan","Hardison","Texas"
+561,"Ian","Still","Texas"
+
+
+
 
 --2. Get all payments above $6.99 with the Customer's Full Name;
 
@@ -25,18 +35,28 @@ JOIN payment
 ON customer.customer_id = payment.customer_id
 WHERE payment.amount > 6.99;
 
+
+Answer : This query has a response of 1423 records. 
         
 
 --3. Show all customers names who have made payments over $175(use subqueries)
 
-SELECT customer.first_name, customer.last_name
+SELECT  distinct customer.customer_id , customer.first_name, customer.last_name
 FROM customer
 JOIN payment
 ON customer.customer_id = payment.customer_id
 WHERE customer.customer_id IN (select customer_id from payment group by customer_id having sum(amount) >175)
 
+Answer : 
+"customer_id","first_name","last_name"
+137,"Rhonda","Kennedy"
+459,"Tommy","Collazo"
+341,"Peter","Menard"
+178,"Marion","Snyder"
+144,"Clara","Shaw"
+148,"Eleanor","Hunt"
+526,"Karl","Seal"
 
--- WHAT'S NOT WORKING --- getting the list of duplicate names.
 
 
 -- 4. List all customers that live in Nepal (use the city table)
@@ -51,7 +71,9 @@ JOIN country
 ON city.country_id = country.country_id
 WHERE city.country_id = (SELECT country_id FROM country WHERE country = 'Nepal')
 
-
+Answer : 
+"customer_id","customer_full_name"
+321,"Kevin Schuler"
 
 
 -- 5. Which staff member had the most transactions?
@@ -64,14 +86,27 @@ GROUP BY staff.staff_id
 ORDER BY total_transactions DESC
 LIMIT 1; 
 
+Answer : 
+"staff_id","total_transactions"
+1,"8040"
+
 
 -- 6. How many movies of each rating are there?
 
 
-SELECT * FROM film;
+
+
 SELECT  rating, COUNT(film_id) AS movie_count
 FROM film
 GROUP BY rating;
+
+Answer : 
+"rating","movie_count"
+"PG-13","223"
+"G","178"
+"R","195"
+"NC-17","210"
+"PG","194"
 
 
 -- 7.Show all customers who have made a single payment above $6.99 (Use Subqueries)
@@ -97,6 +132,9 @@ group by customer_id
 having count(customer_id)=1
 order by customer_id;
 
+Answer : 
+
+130 customers have made a SINGLE PAYMENT above 6.99
 
 
 --  8. How many free rentals did our stores give away?
@@ -107,6 +145,8 @@ FROM rental
 JOIN payment
 ON rental.rental_id = payment.rental_id
 WHERE payment.amount = 0;
+
+Answer : 24
 
 -- Also can be done without join : 
 
